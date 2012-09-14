@@ -1,0 +1,1 @@
+org.xwiki.example.internal.WikiProverbBuilder
