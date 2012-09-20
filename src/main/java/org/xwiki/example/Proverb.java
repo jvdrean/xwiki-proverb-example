@@ -19,8 +19,10 @@
  */
 package org.xwiki.example;
 
+import org.xwiki.component.annotation.Role;
 import org.xwiki.component.wiki.WikiComponent;
 
+@Role
 public interface Proverb extends WikiComponent
 {
     /**
