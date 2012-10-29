@@ -19,14 +19,10 @@
  */
 package org.xwiki.example.internal;
 
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Type;
 
-import org.apache.commons.collections.ListUtils;
-import org.apache.commons.collections.MapUtils;
 import org.xwiki.example.Proverb;
 import org.xwiki.model.reference.DocumentReference;
-import org.xwiki.rendering.block.XDOM;
 
 public class WikiProverb implements Proverb
 {
@@ -56,7 +52,7 @@ public class WikiProverb implements Proverb
     }
 
     @Override
-    public Class<?> getRole()
+    public Type getRoleType()
     {
         return Proverb.class;
     }
@@ -65,17 +61,5 @@ public class WikiProverb implements Proverb
     public String getRoleHint()
     {
         return hint;
-    }
-
-    @Override
-    public List<Class<?>> getImplementedInterfaces()
-    {
-        return ListUtils.EMPTY_LIST;
-    }
-
-    @Override
-    public Map<String, XDOM> getHandledMethods()
-    {
-        return MapUtils.EMPTY_MAP;
     }
 }
