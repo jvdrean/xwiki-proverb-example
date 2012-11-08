@@ -85,9 +85,18 @@ public class WikiProverbBuilder implements WikiComponentBuilder
 
         try {
             XWikiDocument doc = getXWikiContext().getWiki().getDocument(reference, getXWikiContext());
+
+            if (!getXWikiContext().getWiki().getRightService().hasAccessLevel("admin", doc.getAuthor(),
+                "XWiki.XWikiPreferences", getXWikiContext())) {
+                throw new WikiComponentException(String.format("Failed to building Proverb components from document "
+                    +" [%s], author [%s] doesn't have admin rights in the wiki", reference.toString(),
+                    doc.getAuthor()));
+            }
+
             for (BaseObject obj : doc.getXObjects(proverbXClass)) {
                 String roleHint = serializer.serialize(obj.getReference());
-                components.add(new WikiProverb(reference, roleHint, obj.getStringValue("proverb")));
+                components.add(new WikiProverb(reference, doc.getAuthorReference(), roleHint,
+                    obj.getStringValue("proverb")));
             }
         } catch (Exception e) {
             throw new WikiComponentException(String.format("Failed to build Proverb components from document [%s]",

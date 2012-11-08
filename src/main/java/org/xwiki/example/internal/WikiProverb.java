@@ -21,6 +21,8 @@ package org.xwiki.example.internal;
 
 import java.lang.reflect.Type;
 
+import org.xwiki.component.wiki.WikiComponent;
+import org.xwiki.component.wiki.WikiComponentScope;
 import org.xwiki.example.Proverb;
 import org.xwiki.model.reference.DocumentReference;
 
@@ -28,13 +30,16 @@ public class WikiProverb implements Proverb
 {
     private DocumentReference reference;
 
+    private DocumentReference authorReference;
+
     private String proverb;
 
     private String hint;
 
-    public WikiProverb(DocumentReference reference, String hint, String proverb)
+    public WikiProverb(DocumentReference reference, DocumentReference authorReference, String hint, String proverb)
     {
         this.reference = reference;
+        this.authorReference = reference;
         this.hint = hint;
         this.proverb = proverb;
     }
@@ -52,6 +57,12 @@ public class WikiProverb implements Proverb
     }
 
     @Override
+    public DocumentReference getAuthorReference()
+    {
+        return authorReference;
+    }
+
+    @Override
     public Type getRoleType()
     {
         return Proverb.class;
@@ -61,5 +72,11 @@ public class WikiProverb implements Proverb
     public String getRoleHint()
     {
         return hint;
+    }
+
+    @Override
+    public WikiComponentScope getScope()
+    {
+        return WikiComponentScope.WIKI;
     }
 }
